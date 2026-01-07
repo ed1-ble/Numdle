@@ -44,6 +44,8 @@ gameInit = () => {
     let header = document.getElementById('header');
     header.innerText = 'Sum: ' + totalScore.toString();
 
+    // Initialize Board Tiles //
+
     for (let r=0;r<height;r++){
         for (let c=0;c<width;c++){
             let tile = document.createElement('span');
@@ -62,6 +64,8 @@ gameInit = () => {
             document.getElementById('board').appendChild(tile);
         }
     }
+
+    // Initialize the Keyboard //
 
     for (let i=0;i<4;i++) {
         let n = 7; // Sorry i didnt want to think much for this,//
@@ -100,7 +104,9 @@ gameInit = () => {
             keyPressed = 'Key' + keyPressed;
             onAdd(keyPressed);
         }
-    })
+    })  
+
+    // Initialize input keys //
 
     let enterKey = document.getElementById('enterKey');
     enterKey.addEventListener('click',()=>{

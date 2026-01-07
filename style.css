@@ -87,7 +87,7 @@ hr {
 }
 
 .keycap {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: .9 / 1;
 
     background-color:lightyellow;
     color:black;
@@ -96,6 +96,10 @@ hr {
     grid-template-columns: 1fr  3fr 1fr;
     grid-template-rows: 1fr 3fr 1fr;
 
+}
+
+.keycap:hover {
+    background-color: lightgreen;
 }
 
 .keyLetter {
