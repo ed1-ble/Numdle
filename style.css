@@ -76,10 +76,8 @@ hr {
  
 }
 
-
-
 .keycap {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: .8 / 1;
     border-radius: 10%;
     background-color:#f5deb3;
     color:black;
