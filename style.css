@@ -79,11 +79,11 @@ hr {
 #keyboard {
     display: grid;
     grid-template-columns: repeat(7,1fr);
-    width: min(80vw,400px);
+    width: min(90vw,400px);
     height: min(auto,30vh);
     background-color: darkgreen;
     margin: auto;
-    gap:1px;
+    gap:min(1.5vw,5px);
 }
 
 .keycap {
@@ -91,7 +91,7 @@ hr {
 
     background-color:lightyellow;
     color:black;
-    border: solid 0.2vw black;
+    border: solid min(0.75vw,3px) black;
     display: grid;
     grid-template-columns: 1fr  3fr 1fr;
     grid-template-rows: 1fr 3fr 1fr;
@@ -120,7 +120,7 @@ hr {
 #inputKeys {
     height: min(8vw,30px);
     display: flex;
-    gap:5vw;
+    gap:15vw;
     font-size: clamp(16px,5vw,32px);
 }
 
