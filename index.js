@@ -1,4 +1,4 @@
-let height = 7;
+let height = 6;
 let width = 7;
 
 let word = 'SEVENTY';
@@ -92,10 +92,10 @@ let addWord = (letter) => {
     let keyLetter = document.createElement('span');
     keyLetter.innerText = letter;
     keyLetter.className = 'keyLetter';
-    keyLetter.style.fontSize = '30px';
+    keyLetter.style.fontSize = 'min(30px,4.5vw)';
     keyNum.className = 'keyNum';
     keyNum.innerText = scrabPTS[letter].toString();
-    keyNum.style.fontSize = '12.5px';
+    keyNum.style.fontSize = 'min(10px,2.5vw)';
     tile.appendChild(keyLetter);
     tile.appendChild(keyNum);
 }
