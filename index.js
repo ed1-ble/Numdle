@@ -115,16 +115,10 @@ let addExample = (w,parent,format,text) =>{
 
 let initTutorialWindow = (innerhtml) =>{
 
-    let currWindows = document.getElementsByClassName('innerWindow');
-    if (currWindows.length > 0) {
-        for (let i=0;i<currWindows.length;i++) {
-            currWindows[i].remove();
-        }
-    }
-
     let innerWindow = document.createElement('div');
     innerWindow.className = 'innerWindow';
     innerWindow.style.opacity = 0;
+    innerWindow.style.pointerEvents = 'none';
     let cancelButton = document.createElement('button');
     cancelButton.className = 'closeWindowButton';
     cancelButton.innerText = 'X';
