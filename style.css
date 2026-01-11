@@ -183,7 +183,10 @@ hr {
     flex-shrink: 0;
     display: flex;
     justify-content: flex-end;
-    padding-right: 20px;
+}
+
+.placeholder {
+    width: clamp(20px,5vw,40px);
 }
 
 .innerWindow {
@@ -231,6 +234,7 @@ h1,h2,h3,h4,li{
     color:white;
     font-size: clamp(16px,5vw,32px);
     font-weight: bold;
+    width: clamp(20px,5vw,40px);
 }
 
 #tutorialButton:hover {
