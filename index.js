@@ -15,7 +15,6 @@ const scrabPTS = {
   'Z': 10, 'X': 8, 'C': 3, 'V': 4, 'B': 3, 'N': 1, 'M': 3
 };
 
-
 const alpha = Object.entries(scrabPTS).map(([letter, points]) => { return { letter, points }; });
 
 // Calculate total score hint //
@@ -114,7 +113,7 @@ let addExample = (w,parent,format,text) =>{
     parent.appendChild(p);
 }
 
-let showInnerWindow = (innerhtml) =>{
+let initTutorialWindow = (innerhtml) =>{
 
     let currWindows = document.getElementsByClassName('innerWindow');
     if (currWindows.length > 0) {
@@ -125,6 +124,7 @@ let showInnerWindow = (innerhtml) =>{
 
     let innerWindow = document.createElement('div');
     innerWindow.className = 'innerWindow';
+    innerWindow.style.opacity = 0;
     let cancelButton = document.createElement('button');
     cancelButton.className = 'closeWindowButton';
     cancelButton.innerText = 'X';
@@ -135,7 +135,7 @@ let showInnerWindow = (innerhtml) =>{
     innerWindow.appendChild(htmlContent);
 
     cancelButton.addEventListener('click',()=>{
-        innerWindow.remove();
+        innerWindow.style.opacity = 0;
     })
 
     // Append TUTORIAL EXAMPLES, format: split by '-' //
@@ -190,6 +190,8 @@ gameInit = () => {
 
     let header = document.getElementById('header');
     header.innerText = 'Points: ' + totalScore.toString();
+
+    let tutorialWindow = initTutorialWindow(tutorialHTML);
 
     // Initialize Board Tiles //
 
@@ -258,7 +260,7 @@ gameInit = () => {
 
     let tutorialButton = document.getElementById('tutorialButton');
     tutorialButton.addEventListener('click',()=>{
-       showInnerWindow(tutorialHTML);
+       tutorialWindow.style.opacity = 1;
     })
 }
 
