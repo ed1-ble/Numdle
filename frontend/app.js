@@ -206,7 +206,7 @@ async function loadScreen(){
 
 // Preload the word list //
 async function getWordList(){
-    const url = '../services/7L-words.txt';
+    const url = 'https://ed1-ble.github.io/Bingle/services/7L-words.txt';
     return fetch(url)
         .then(response => {return response.text()})
         .then(result =>{return result.split('\n');})
