@@ -1,8 +1,8 @@
 let height = 6;
 let width = 7;
 
-let word = 'SEVENTY';
-let bonusSq = '-D--T--';
+let word = 'EDITORS';
+let bonusSq = '-TD--D-';
 
 let gameEnd = false;
 
