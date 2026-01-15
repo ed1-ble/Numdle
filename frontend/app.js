@@ -184,7 +184,7 @@ let sleep = (ms) => {
     return new Promise(resolve => setTimeout(resolve,ms));
 }
 
-const loadTime = 5;
+const loadTime = 3;
 
 // Prevent weird looks before loading finishes by adding load countdown//
 async function loadScreen(){
@@ -275,6 +275,8 @@ async function gameInit (){
                 addInputKey('Enter',keycap);
             } else if (currAlphabetNo <= 25) {
                 addAlphaKey(alpha[currAlphabetNo].letter,keycap);
+                // Assign id to each keycap to be recognized for blackening //
+                keycap.id = 'Key' + alpha[currAlphabetNo].letter;
                 currAlphabetNo += 1;
             } else {
                 // Add Backspace Key //
@@ -359,6 +361,9 @@ let rmWord = () => {
 
 }
 
+let letterIgnoreList = [];
+// a list of absent letters, used to ignore input for target keys //
+
 let checkWord = () => {
 
     let corrCnt = 0; // Count for correct letters, if reaches width, plr wins // 
@@ -377,6 +382,8 @@ let checkWord = () => {
         getTile(row,n).classList.add('absent');
     }
 
+    let presentLetters = [];
+
     for (let i=0;i<width;i++){
         for (let j=0;j<width;j++){
             if (word[i] === wordOnTiles[j]) {
@@ -387,9 +394,24 @@ let checkWord = () => {
                 } else {
                     getTile(row,j).classList.replace('absent','present');
                 }
+                if (presentLetters.includes(wordOnTiles[j]) == false) {
+                    presentLetters += [wordOnTiles[j]];
+                }
             }
         }
     }
+
+    // Using presentLetters, blacken FAILED keys for better readability //
+    wordOnTiles.split('').forEach((letter)=>{
+        if (presentLetters.includes(letter) == false) {
+            const targetKey = document.getElementById('Key'+letter);
+            targetKey.style.backgroundColor = 'grey';
+
+            if (letterIgnoreList.includes(letter) == false) {
+                letterIgnoreList += [letter];
+            }
+        }
+    })
 
     if (corrCnt == width) {
         return 'Win';
@@ -405,7 +427,7 @@ document.addEventListener('keyup',(event)=>{
 })
 
 onAdd = (keyCode) => {
-    if (gameEnd) return;
+    if (gameEnd | letterIgnoreList.includes(keyCode[3])) return;
     
     if ("KeyA" <= keyCode && "KeyZ" >= keyCode) {
         if (col < width) {

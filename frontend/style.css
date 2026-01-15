@@ -70,14 +70,18 @@ hr {
     background-color: lightskyblue;
     color:white;
     border-color: lightblue;
-
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .tripleLetter {
     background-color: lightcoral;
     color: white;
     border-color: lightpink;
- 
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .keycap {
