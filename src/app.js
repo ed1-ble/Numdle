@@ -274,10 +274,13 @@ async function gameInit (){
         if (dailyWord.length > width) {
             // Fetched the wrong thing, like an html file //
             console.error('Using fallback due to wrong fetch: ',dailyWord)
+            setTimeout(()=>{
+                showNotification('Fetch error, using fallback. Press ⟳ to switch to Practise Mode',3)
+            },loadTime*1000)
             dailyWord = word;
         } else {
             setTimeout(()=>{
-                showNotification('Loaded Daily Word! Press ⟳ to switch to Practise Mode',3)
+                showNotification('Successfully loaded Daily Word! Press ⟳ to switch to Practise Mode',3)
             },loadTime*1000);
         }
         console.log(dailyWord);
