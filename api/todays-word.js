@@ -28,7 +28,7 @@ let getWord=()=>{
 
 // setTimeout(()=>{console.log(getWord())},1000) //
 
-app.get('/api/word',(req,res)=>{ // word is an API endpoint, not a url path to any file in the repo! //
+app.get('/word',(req,res)=>{ // word is an API endpoint, not a url path to any file in the repo! //
     const currWord = getWord();
     res.send(currWord);
 });

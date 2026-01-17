@@ -1,7 +1,7 @@
 let height = 4;
 let width = 5;
 
-let word = 'ADIEU';
+let word = 'WHICH';
 let bonusSq = '-TD--';
 
 let gameEnd = false;
@@ -230,7 +230,13 @@ let wordList = [];
 async function gameInit (){
 
     loadScreen();
-   
+    
+    word;
+    try {
+        word = await getTodaysWord();
+        console.log(word);
+    } catch (err){console.error(err.message)}
+
     wordList;
     try {
         wordList = await getWordList();
