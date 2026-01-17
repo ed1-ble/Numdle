@@ -218,7 +218,7 @@ async function getWordList(){
 }
 
 async function getTodaysWord(){
-    const url = '/api/word';
+    const url = 'https://wordle-api-azure.vercel.app/api/word';
     return fetch(url)
         .then(response => {return response.text()})
         .then(result =>{return result})
@@ -234,7 +234,7 @@ async function gameInit (){
     word;
     try {
         word = await getTodaysWord();
-        console.log(word);
+        word = word.toUpperCase();
     } catch (err){console.error(err.message)}
 
     wordList;
