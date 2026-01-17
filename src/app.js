@@ -19,21 +19,6 @@ const scrabPTS = {
 
 const alpha = Object.entries(scrabPTS).map(([letter, points]) => { return { letter, points }; });
 
-// Calculate total score hint //
-let totalScore = 0;
-for (let i=0;i<width;i++) {
-    let bonus = 1;
-    switch (bonusSq[i]){
-        case 'D':
-            bonus = 2;
-            break;
-        case 'T':
-            bonus = 3;
-            break;
-    }
-    totalScore += scrabPTS[word[i]]*bonus;
-}
-
 window.onload = function(){
     gameInit();
 }
@@ -208,6 +193,41 @@ async function loadScreen(){
    loadingscreen.remove();
 }
 
+let totalScore = 0;
+const maxBonus = 3;
+
+const currBonus = ['-','-','-','D','D','T','T']
+function generatePattern(){
+    bonusSq = '';
+    let bonusNo =0;
+    for (let i=0;i<width;i++) {
+        let tilePattern = currBonus[Math.floor(Math.random()*currBonus.length)];
+        if (tilePattern !== '-' && bonusNo < maxBonus) {
+            bonusNo += 1;
+        }
+        if (bonusNo >= maxBonus) {
+            bonusSq += '-';
+        } else {
+            bonusSq += tilePattern;
+        }
+    }
+
+    // Calculate total score hint //
+    for (let i=0;i<width;i++) {
+        let bonus = 1;
+        switch (bonusSq[i]){
+            case 'D':
+                bonus = 2;
+                break;
+            case 'T':
+                bonus = 3;
+                break;
+        }
+        totalScore += scrabPTS[word[i]]*bonus;
+    }
+    return totalScore;
+}
+
 // Preload the word list //
 async function getWordList(){
     const url = 'public/words.txt';
@@ -245,6 +265,8 @@ async function gameInit (){
     } catch (error) {
         console.error(error.message);
     }
+
+    generatePattern();
  
     let keyboardDiv = document.getElementById('keyboard');
 
