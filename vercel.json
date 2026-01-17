@@ -1,10 +1,11 @@
 {
-    "version": 2,
-    "builds": [{"src": "api/todays-word.js", "use": "@vercel/node"}],
-    "routes": [{
-        "src": "/api/word",
-        "dest": "api/todays-word.js"
-    }]
-    
+  "version": 2,
+  "builds": [
+    { "src": "api/**/*.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "api/$1.js" }
+  ]
 }
+
 
