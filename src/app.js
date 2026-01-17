@@ -212,7 +212,7 @@ async function loadScreen(){
 async function getWordList(){
     const url = 'public/words.txt';
     return fetch(url)
-        .then(response => {return response.text()})
+        .then(response => {return response.text()}) // .text() is a middleware //
         .then(result =>{return result.split('\n');})
         .catch((error)=>{console.error(error)})
 }
@@ -220,7 +220,9 @@ async function getWordList(){
 async function getTodaysWord(){
     const url = '/api/word';
     return fetch(url)
-        .then(response => {console.log(response.json())})
+        .then(response => {return response.text()})
+        .then(result =>{return result})
+        .catch((error)=>{console.error(error)})
 }
 
 let wordList = [];
