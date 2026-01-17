@@ -212,7 +212,12 @@ function generatePattern(){
         }
     }
 
+    
+}
+
+function calculateScore(){
     // Calculate total score hint //
+    totalScore = 0;
     for (let i=0;i<width;i++) {
         let bonus = 1;
         switch (bonusSq[i]){
@@ -225,7 +230,8 @@ function generatePattern(){
         }
         totalScore += scrabPTS[word[i]]*bonus;
     }
-    return totalScore;
+    let header = document.getElementById('header');
+    header.innerText = `${currMode} word score: ` + totalScore.toString();
 }
 
 // Preload the word list //
@@ -245,17 +251,37 @@ async function getTodaysWord(){
         .catch((error)=>{console.error(error)})
 }
 
+async function getPractiseWordList(){
+    const url = 'public/common-5L-words.txt';
+    return fetch(url)
+        .then(response=>{return response.text()})
+        .then(result=>{return result.split('\n')})
+        .catch(error=>{console.error(error)})
+}
+
 let wordList = [];
 
 async function gameInit (){
 
     loadScreen();
     
+    let dailyWord = '';
+
     word;
     try {
-        word = await getTodaysWord();
-        word = word.toUpperCase();
-        console.log(word);
+        dailyWord = await getTodaysWord();
+        dailyWord = dailyWord.toUpperCase();
+        if (dailyWord.length > width) {
+            // Fetched the wrong thing, like an html file //
+            console.error('Using fallback due to wrong fetch: ',dailyWord)
+            dailyWord = word;
+        } else {
+            setTimeout(()=>{
+                showNotification('Loaded Daily Word! Press ⟳ to switch to Practise Mode',3)
+            },loadTime*1000);
+        }
+        console.log(dailyWord);
+        word = dailyWord;
     } catch (err){console.error(err.message)}
 
     wordList;
@@ -266,12 +292,17 @@ async function gameInit (){
         console.error(error.message);
     }
 
+    // Play a starting flip anim for tiles after loading just for looks //
+    setTimeout(()=>{
+        tilesList.forEach((t)=>{
+            flipAnim(t,null);
+        })
+    },loadTime*1000);
+
     generatePattern();
+    calculateScore();
  
     let keyboardDiv = document.getElementById('keyboard');
-
-    let header = document.getElementById('header');
-    header.innerText = `Word score: ` + totalScore.toString();
 
     let tutorialWindow = initTutorialWindow(tutorialHTML);
 
@@ -298,13 +329,6 @@ async function gameInit (){
             tilesList.push(tile);
         }
     }
-
-    // Play a starting flip anim for tiles after loading just for looks //
-    setTimeout(()=>{
-        tilesList.forEach((t)=>{
-            flipAnim(t,null);
-        })
-    },loadTime*1000);
 
     // Initialize the Keyboard //
     let currAlphabetNo = 0;
@@ -357,13 +381,77 @@ async function gameInit (){
        tutorialWindow.style.opacity = 1;
        tutorialWindow.style.pointerEvents = 'auto';
     })
+
+    let practiseButton = document.getElementById('practiseButton');
+    // Switch between Practise and Daily mode //
+    practiseButton.addEventListener('click', async ()=>{
+        practiseButton.blur();
+        if (currMode === 'Daily') {
+            currMode = 'Practise';
+
+            let practiseWord = 'LIGHT';
+            try {
+                const commonWordList = await getPractiseWordList();
+                practiseWord = commonWordList[Math.floor(Math.random()*commonWordList.length)].toUpperCase();
+                console.log(practiseWord);
+            } catch (error) {console.error(error)}
+            word = practiseWord;
+            calculateScore();
+        } else if (currMode === 'Practise') {
+            currMode = 'Daily';
+            word = dailyWord;
+            calculateScore();
+        }
+        resetBoard();
+        showNotification(`Switching to ${currMode} mode...`,2);
+    })
+}
+
+let currMode = 'Daily';
+
+function resetBoard(){
+    
+    const board = document.getElementById('board')
+    let tileLetters = board.getElementsByClassName('keyLetter');
+    let tileNum = board.getElementsByClassName('keyNum');
+
+    Array.from(tileLetters).forEach((item)=>{item.remove()})
+    Array.from(tileNum).forEach((item)=>{item.remove()})
+
+    for (let r=0;r<height;r++){
+        for (let c=0;c<width;c++){
+            // Reset hint colors //
+            let tile = getTile(r,c)
+            tile.classList.replace('absent',null)
+            tile.classList.replace('present',null)
+            tile.classList.replace('correct',null)
+            // Reset bonus Squares //
+            if (bonusSq[c] === 'D') {
+                tile.classList.add('doubleLetter');
+                tile.innerText = 'Double Letter';
+            } else if (bonusSq[c] === 'T') {
+                tile.classList.add('tripleLetter');
+                tile.innerText = 'Triple Letter';
+            }
+        }
+    }
+
+    // Reset Keyboard Grey Keycaps //
+    Array.from(document.getElementsByClassName('keyboardrow')).forEach((kbRow)=>{
+        Array.from(kbRow.getElementsByClassName('keycap')).forEach((keyCap)=>{
+            keyCap.style.backgroundColor = '#FFE6A8';
+        })
+    })
+
+    row = 0;
+    col = 0;
+    gameEnd = false;
 }
 
 let getTile = (r,c) => {
     let tile = document.getElementById(r.toString()+'-'+c.toString());
     return tile;
 }
-
 const arrowChar = '⇆';
 
 let addWord = (letter) => {
@@ -547,3 +635,4 @@ onAdd = (keyCode) => {
 document.addEventListener("dblclick", function (event) {
     event.preventDefault();
 }, { passive: false }); // Disables double click zooming //
+

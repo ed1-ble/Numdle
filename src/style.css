@@ -120,9 +120,6 @@ hr {
 
 }
 
-.keycap:hover {
-    background-color: white;
-}
 
 .keyLetter {
     aspect-ratio: 1 / 1;
@@ -266,6 +263,19 @@ h1,h2,h3,h4,li{
 }
 
 #tutorialButton:hover {
+    color: black;
+}
+
+#practiseButton {
+    background-color: transparent;
+    border:none;
+    color:#D9D9C4;
+    font-size: clamp(16px,5vw,32px);
+    font-weight: bold;
+    width: clamp(20px,5vw,40px);
+}
+
+#practiseButton:hover {
     color: black;
 }
 
