@@ -210,11 +210,17 @@ async function loadScreen(){
 
 // Preload the word list //
 async function getWordList(){
-    const url = 'https://ed1-ble.github.io/Numdle/public/words.txt';
+    const url = 'public/words.txt';
     return fetch(url)
         .then(response => {return response.text()})
         .then(result =>{return result.split('\n');})
         .catch((error)=>{console.error(error)})
+}
+
+async function getTodaysWord(){
+    const url = '/api/word';
+    return fetch(url)
+        .then(response => {console.log(response.json())})
 }
 
 let wordList = [];
@@ -222,7 +228,7 @@ let wordList = [];
 async function gameInit (){
 
     loadScreen();
-
+   
     wordList;
     try {
         wordList = await getWordList();
