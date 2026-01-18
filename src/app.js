@@ -234,9 +234,11 @@ function calculateScore(){
     header.innerText = `${currMode} word score: ` + totalScore.toString();
 }
 
+const commonWordUrl = 'public/common-5L-words.txt';
+const wordUrl = 'public/words.txt'
+
 // Preload the word list //
-async function getWordList(){
-    const url = 'public/words.txt';
+async function getWordList(url){
     return fetch(url)
         .then(response => {return response.text()}) // .text() is a middleware //
         .then(result =>{return result.split('\n');})
@@ -260,7 +262,7 @@ async function getTodaysWord(){
 async function getTodaysWordLocally(){
     let localWord = 'FETCH' // Fallback for local word //
     try {
-        const localWordList = await getWordList();
+        const localWordList = await getWordList(commonWordUrl);
         const today = new Date();
         const quadDayIndex = Math.floor(today.getTime() / (1000 * 60 * 60 * 6)); // Rotates word every 6 hours //
         localWord = localWordList[quadDayIndex % localWordList.length].toUpperCase();
@@ -309,7 +311,7 @@ async function gameInit (){
 
     wordList;
     try {
-        wordList = await getWordList();
+        wordList = await getWordList(wordUrl);
         console.log(wordList);
     } catch (error) {
         console.error(error.message);
