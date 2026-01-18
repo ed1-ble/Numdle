@@ -182,7 +182,7 @@ async function loadScreen(){
     const topbar = document.getElementById('topbar');
     topbar.append(loadingscreen);
 
-    const funText = ['Shuffling tiles, hang on for ','Drawing letters, give us ', 'Board nearly set-up, just wait ']
+    const funText = ['Shuffling tiles, hang on for ','Drawing letters, give us ']
     const ranFunText = funText[Math.floor(Math.random()*funText.length)];
 
     for (let i = loadTime; i > 0; i--) {
@@ -243,12 +243,32 @@ async function getWordList(){
         .catch((error)=>{console.error(error)})
 }
 
+/*
+
+Func for fetching from my Wordle API, which is disabled cuz I dont want unnecessary traffic when a local solution is feasible
+Check out the README if you wanna use this, its open sourced
+
 async function getTodaysWord(){
-    const url = 'https://wordle-api-azure.vercel.app/api/word';
+    const url = 'https://wordle-api-azure.vercel.app/api/word'; 
     return fetch(url)
         .then(response => {return response.text()})
         .then(result =>{return result})
         .catch((error)=>{console.error(error)})
+}
+*/
+
+async function getTodaysWordLocally(){
+    let localWord = 'FETCH' // Fallback for local word //
+    try {
+        const localWordList = await getWordList();
+        const today = new Date();
+        const quadDayIndex = Math.floor(today.getTime() / (1000 * 60 * 60 * 6)); // Rotates word every 6 hours //
+        localWord = localWordList[quadDayIndex % localWordList.length].toUpperCase();
+        console.log(`Today's local word is ${localWord}`);
+    
+    } catch (err){console.error(err)}
+
+    return localWord;
 }
 
 async function getPractiseWordList(){
@@ -269,18 +289,18 @@ async function gameInit (){
 
     word;
     try {
-        dailyWord = await getTodaysWord();
+        dailyWord = await getTodaysWordLocally();
         dailyWord = dailyWord.toUpperCase();
         if (dailyWord.length > width) {
             // Fetched the wrong thing, like an html file //
             console.error('Using fallback due to wrong fetch: ',dailyWord)
             setTimeout(()=>{
-                showNotification('Fetch error, using fallback. Press ⟳ to switch to Practise Mode',3)
+                showNotification(`Fetch error, using fallback. Press ${arrowChar} to switch to Practise Mode`,3)
             },loadTime*1000)
             dailyWord = word;
         } else {
             setTimeout(()=>{
-                showNotification('Successfully loaded Daily Word! Press ⟳ to switch to Practise Mode',3)
+                showNotification(`Successfully loaded Daily Word! Press ${arrowChar} to switch to Practise Mode`,3)
             },loadTime*1000);
         }
         console.log(dailyWord);
@@ -456,6 +476,7 @@ let getTile = (r,c) => {
     return tile;
 }
 const arrowChar = '⇆';
+const arithmeticChar = 'Δ'
 
 let addWord = (letter) => {
     tile = getTile(row,col);
@@ -476,14 +497,14 @@ let addWord = (letter) => {
         tile.innerText = '';
         keyNum.style.color = '#ADD8E6';
         keyLetter.style.color = '#ADD8E6';
-        keyNum.innerText = `${keyNum.innerText}${arrowChar}`;
+        keyNum.innerText = `${arithmeticChar}${keyNum.innerText}`;
      //   keyNum.innerText = (Number(keyNum.innerText) * 2).toString(); //
     } else if (bonusSq[col] === 'T') {
         tile.classList.replace('tripleLetter',null);
         tile.innerText = '';
         keyNum.style.color = '#00AEEF';
         keyLetter.style.color = '#00AEEF';
-        keyNum.innerText = `${keyNum.innerText}${arrowChar}`;
+        keyNum.innerText = `${arithmeticChar}${keyNum.innerText}`;
      //   keyNum.innerText = (Number(keyNum.innerText) * 3).toString(); //
     }
 
@@ -557,7 +578,9 @@ let checkWord = () => {
                     corrCnt += 1;
                     hintPattern[j] = 'correct';
                 } else {
-                    hintPattern[j] = 'present';
+                    if (hintPattern[j] !== 'correct'){
+                        hintPattern[j] = 'present';
+                    }
                 }
                 if (presentLetters.includes(wordOnTiles[j]) == false) {
                     presentLetters += [wordOnTiles[j]];

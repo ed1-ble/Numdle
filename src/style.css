@@ -50,7 +50,7 @@ hr {
 .tile {
     /*Box*/
     aspect-ratio: 1 / 1;
-    border:min(2px,0.25vw) solid #D9D9C4;
+    border:clamp(2px,0.3vw,4px) solid #D9D9C4;
 
     /*Text*/
     color:white;
@@ -113,7 +113,7 @@ hr {
     border-radius: 10%;
     background-color: #FFE6A8;
     color:black;
-    border: solid min(0.5vw,3px) black;
+    border: solid clamp(2px,0.35vw,4px) black;
     display: grid;
     grid-template-columns: 1fr 5fr 1fr;
     grid-template-rows: 1fr 5fr 1fr;
@@ -205,9 +205,11 @@ hr {
     width: 100%; 
     height: clamp(20px, 5vh, 70px);
     background-color: #2F4F2F;
-    flex-shrink: 0;
-    display: flex;
-    justify-content: flex-end;
+    display: grid;
+    margin:0;
+    padding: 0;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr;
 }
 
 .placeholder {
@@ -258,8 +260,10 @@ h1,h2,h3,h4,li{
     border:none;
     color:#D9D9C4;
     font-size: clamp(16px,5vw,32px);
+    text-wrap: nowrap;
     font-weight: bold;
     width: clamp(20px,5vw,40px);
+    text-align: center;
 }
 
 #tutorialButton:hover {
@@ -271,8 +275,10 @@ h1,h2,h3,h4,li{
     border:none;
     color:#D9D9C4;
     font-size: clamp(16px,5vw,32px);
+    text-wrap: nowrap;
     font-weight: bold;
     width: clamp(20px,5vw,40px);
+    text-align: center;
 }
 
 #practiseButton:hover {
