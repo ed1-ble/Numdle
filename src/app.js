@@ -231,7 +231,7 @@ function calculateScore(){
         totalScore += scrabPTS[word[i]]*bonus;
     }
     let header = document.getElementById('header');
-    header.innerText = `${currMode} word score: ` + totalScore.toString();
+    header.innerText = `${currMode.toUpperCase()} MODE | SCORE: ` + totalScore.toString();
 }
 
 // Preload the word list //
@@ -295,12 +295,12 @@ async function gameInit (){
             // Fetched the wrong thing, like an html file //
             console.error('Using fallback due to wrong fetch: ',dailyWord)
             setTimeout(()=>{
-                showNotification(`Fetch error, using fallback. Press ${arrowChar} to switch to Practise Mode`,3)
+                showNotification(`Fetch error, using fallback. Press ${arrowChar} to switch modes`,3)
             },loadTime*1000)
             dailyWord = word;
         } else {
             setTimeout(()=>{
-                showNotification(`Successfully loaded Daily Word! Press ${arrowChar} to switch to Practise Mode`,3)
+                showNotification(`Successfully loaded Daily Word! Press ${arrowChar} to switch modes`,3)
             },loadTime*1000);
         }
         console.log(dailyWord);
@@ -420,10 +420,12 @@ async function gameInit (){
             } catch (error) {console.error(error)}
             word = practiseWord;
             calculateScore();
+            document.body.style.backgroundColor = '#4A5D3A';
         } else if (currMode === 'Practise') {
             currMode = 'Daily';
             word = dailyWord;
             calculateScore();
+            document.body.style.backgroundColor = '#355E3B';
         }
         resetBoard();
         showNotification(`Switching to ${currMode} mode...`,2);
@@ -476,7 +478,7 @@ let getTile = (r,c) => {
     return tile;
 }
 const arrowChar = '⇆';
-const arithmeticChar = 'Δ'
+const arithmeticChar = '∑'
 
 let addWord = (letter) => {
     tile = getTile(row,col);
@@ -537,7 +539,7 @@ async function winEffects() {
             
         },1200);
     }
-    showNotification('No. 1 Victory Royale!!',2);
+    showNotification('Bravo!',2);
 }
 
 async function flipAnim(tile,finalClass){

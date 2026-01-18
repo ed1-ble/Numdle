@@ -31,7 +31,7 @@ hr {
 }
 
 #header {
-    font-size: min(6vw,30px);
+    font-size: clamp(1rem, 4vw, 2.5rem);
     color: #D9D9C4;
     font-weight: bold;
     word-spacing: 2px;
@@ -255,8 +255,8 @@ h1,h2,h3,h4,li{
     margin: 0;
 }
 
-#tutorialButton {
-    background-color: transparent;
+.utilButton {
+    background-color: darkolivegreen;
     border:none;
     color:#D9D9C4;
     font-size: clamp(16px,5vw,32px);
@@ -266,23 +266,9 @@ h1,h2,h3,h4,li{
     text-align: center;
 }
 
-#tutorialButton:hover {
-    color: black;
-}
-
-#practiseButton {
-    background-color: transparent;
-    border:none;
-    color:#D9D9C4;
-    font-size: clamp(20px,5vw,32px);
-    text-wrap: nowrap;
-    font-weight: bold;
-    width: clamp(40px,10vw,80px);
-    text-align: center;
-}
-
-#practiseButton:hover {
-    color: black;
+.utilButton:hover {
+    background-color: #D9D9C4;
+    color:darkolivegreen;
 }
 
 .exampleWord {
