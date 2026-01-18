@@ -9,6 +9,7 @@ Game Link: https://ed1-ble.github.io/Numdle/
 - Features daily word rotation (although technically the word rotates every 6 hours)
 - Word validation against word list with 10k+ words!
 - Bonus squares acting as clues! Sum up the words to see if they match the hinted score!
+- Mobile compatible UI and a custom keypad/keyboard thingy!
 
 ![FEATURES](numdlePracMode.png)
 
