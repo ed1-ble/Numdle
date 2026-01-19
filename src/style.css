@@ -136,7 +136,7 @@ hr {
 }
 
 .keyNum {
-    font-size: clamp(5px,2.5vw,10px); /* NOTE: font value is set for keyboard */
+    font-size: clamp(4px,2.25vw,10px); /* NOTE: font value is set for keyboard */
     font-weight: bold;
     grid-column: -2/-1;
     grid-row:-2/-1;
@@ -158,11 +158,11 @@ hr {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: min(95vw,600px);
+    width: min(98vw,600px);
     height: min(auto,30vh);
     background-color: transparent;
     margin: auto;
-    gap:min(5px,0.5vh);
+    gap:min(5px,0.5vw);
 }
 
 .keyboardrow {
