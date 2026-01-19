@@ -482,6 +482,9 @@ let getTile = (r,c) => {
 const arrowChar = '⇆';
 const arithmeticChar = '∑'
 
+const keyNumTileSize = 'clamp(6px,1.75vw,10px)';
+const keyLetterTileSize = 'clamp(10px,3.5vw,23px)';
+
 let addWord = (letter) => {
     tile = getTile(row,col);
     let keyNum = document.createElement('span');
@@ -489,11 +492,11 @@ let addWord = (letter) => {
 
     keyLetter.innerText = letter;
     keyLetter.className = 'keyLetter';
-    keyLetter.style.fontSize = 'min(25px,4.5vw)';
+    keyLetter.style.fontSize = keyLetterTileSize;
 
     keyNum.className = 'keyNum';
     keyNum.innerText = scrabPTS[letter].toString();
-    keyNum.style.fontSize = 'clamp(8px,1.5vw,15px)';
+    keyNum.style.fontSize = keyNumTileSize;
 
     // Modification for Bonus Squares //
     if (bonusSq[col] === 'D') {
