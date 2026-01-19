@@ -15,7 +15,7 @@ body {
 #board {
     display: grid;
     grid-template-columns: repeat(5,1fr);
-    grid-template-rows: repeat(4,1fr);
+    grid-template-rows: repeat(5,1fr);
     width: min(340px,60vw);
     gap:4px;
     margin: auto;

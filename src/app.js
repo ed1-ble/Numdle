@@ -1,4 +1,4 @@
-let height = 4;
+let height = 5;
 let width = 5;
 
 let word = 'WHICH';
@@ -504,14 +504,14 @@ let addWord = (letter) => {
         tile.innerText = '';
         keyNum.style.color = '#ADD8E6';
         keyLetter.style.color = '#ADD8E6';
-        keyNum.innerText = `${arithmeticChar}${keyNum.innerText}`;
+        keyNum.innerText = `?`;
      //   keyNum.innerText = (Number(keyNum.innerText) * 2).toString(); //
     } else if (bonusSq[col] === 'T') {
         tile.classList.replace('tripleLetter',null);
         tile.innerText = '';
         keyNum.style.color = '#00AEEF';
         keyLetter.style.color = '#00AEEF';
-        keyNum.innerText = `${arithmeticChar}${keyNum.innerText}`;
+        keyNum.innerText = `?`;
      //   keyNum.innerText = (Number(keyNum.innerText) * 3).toString(); //
     }
 
