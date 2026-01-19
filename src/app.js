@@ -482,7 +482,7 @@ let getTile = (r,c) => {
 const arrowChar = '⇆';
 const arithmeticChar = '∑'
 
-const keyNumTileSize = 'clamp(6px,1.75vw,10px)';
+const keyNumTileSize = 'clamp(5px,2.5vw,10px)';
 const keyLetterTileSize = 'clamp(10px,3.5vw,23px)';
 
 let addWord = (letter) => {
