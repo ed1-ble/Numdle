@@ -157,6 +157,7 @@ hr {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
     width: min(95vw,600px);
     height: min(auto,30vh);
     background-color: transparent;
