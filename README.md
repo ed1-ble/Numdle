@@ -1,5 +1,5 @@
-# Numdle
-A Wordle-inspired minigame with a little touch of Scrabble.
+# WORDLE + SCRABBLE = ?
+Numdle - A Wordle-inspired minigame with a little touch of Scrabble.
 
 Game Link: https://ed1-ble.github.io/Numdle/
 
